@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AI Analyzer</title>
+
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #e6f0ff, #ffffff);
+      text-align: center;
+      padding: 40px;
+    }
+
+    h1 {
+      font-size: 28px;
+      color: #1f2d3d;
+      margin-bottom: 5px;
+    }
+
+    p {
+      color: #6b7c93;
+      margin-bottom: 30px;
+    }
+
+    .container {
+      background: white;
+      padding: 40px;
+      border-radius: 20px;
+      max-width: 520px;
+      margin: auto;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+    }
+
+    input[type="file"] {
+      margin: 20px 0;
+    }
+
+    img {
+      max-width: 100%;
+      margin: 20px 0;
+      border-radius: 16px;
+      display: none;
+    }
+
+    .btn-group {
+      margin-top: 10px;
+    }
+
+    button {
+      padding: 12px 26px;
+      margin: 8px;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: all 0.25s ease;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+    }
+
+    .analyze {
+      background: linear-gradient(135deg, #00c853, #69f0ae);
+      color: white;
+    }
+
+    .back {
+      background: #eceff1;
+    }
+
+    .active {
+      background: #9e9e9e !important;
+      color: white !important;
+    }
+
+    #result {
+      margin-top: 25px;
+      padding: 18px;
+      border-radius: 14px;
+      background: #f4f8ff;
+      color: #1f2d3d;
+      font-weight: 600;
+      font-size: 16px;
+      min-height: 50px;
+    }
+
+    .success {
+      background: #e8f5e9 !important;
+      color: #2e7d32 !important;
+    }
+
+    .danger {
+      background: #ffebee !important;
+      color: #c62828 !important;
+    }
+
+    /* ===== toggle ภาษา (แก้แล้ว) ===== */
+    .lang-switch {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 90px;
+      height: 36px;
+      background: #e0e0e0;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 4px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 12px;
+      box-sizing: border-box;
+    }
+
+    .lang-switch span {
+      width: 50%;
+      text-align: center;
+      z-index: 2;
+    }
+
+    #slider {
+      position: absolute;
+      width: 50%;
+      height: calc(100% - 8px);
+      background: #1a73e8;
+      border-radius: 20px;
+      left: 4px;
+      top: 4px;
+      transition: 0.3s;
+    }
+
+    .lang-en #slider {
+      left: calc(50% - 4px);
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- 🌐 toggle ภาษา -->
+  <div class="lang-switch" onclick="toggleLang()">
+    <div id="slider"></div>
+    <span>TH</span>
+    <span>EN</span>
+  </div>
+
+  <h1 id="title">🧠 ตัววิเคราะห์รอยแมลงกัด</h1>
+  <p id="desc">อัปโหลดรูปเพื่อวิเคราะห์ว่าโดนตัวอะไร</p>
+
+  <div class="container">
+
+    <input type="file" id="fileInput">
+
+    <img id="preview">
+
+    <div class="btn-group">
+      <button id="analyzeBtn" class="analyze" onclick="setActive(this); analyze()">วิเคราะห์</button>
+      <button id="backBtn" class="back" onclick="setActive(this); goBack()">← กลับ</button>
+    </div>
+
+    <div id="result"></div>
+
+  </div>
+
+  <script>
+    let currentLang = "th";
+
+    function toggleLang() {
+      const body = document.body;
+      const title = document.getElementById("title");
+      const desc = document.getElementById("desc");
+      const analyzeBtn = document.getElementById("analyzeBtn");
+      const backBtn = document.getElementById("backBtn");
+
+      if (currentLang === "th") {
+        body.classList.add("lang-en");
+
+        title.innerText = "🧠 AI Insect Bite Analyzer";
+        desc.innerText = "Upload an image to identify what bit you";
+        analyzeBtn.innerText = "Analyze";
+        backBtn.innerText = "← Back";
+
+        currentLang = "en";
+      } else {
+        body.classList.remove("lang-en");
+
+        title.innerText = "🧠 ตัววิเคราะห์รอยแมลงกัด";
+        desc.innerText = "อัปโหลดรูปเพื่อวิเคราะห์ว่าโดนตัวอะไร";
+        analyzeBtn.innerText = "วิเคราะห์";
+        backBtn.innerText = "← กลับ";
+
+        currentLang = "th";
+      }
+    }
+
+    function setActive(btn) {
+      btn.classList.add("active");       // กดแล้วเทา
+      setTimeout(() => {
+        btn.classList.remove("active");  // 150ms แล้วกลับสีเดิม
+      }, 150);
+
+    }
+  </script>
+
+  <script src="script_analyzer.js" defer></script>
+
+</body>
+</html>

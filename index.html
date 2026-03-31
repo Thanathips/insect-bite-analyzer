@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AI Bite Analyzer</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #1a73e8, #4fc3f7);
+      color: white;
+      text-align: center;
+    }
+
+    .hero {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+    }
+
+    /* ✅ ใช้ style เดียวกับ analyzer */
+    .main-btn {
+      padding: 12px 26px;
+      margin: 8px;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: all 0.25s ease;
+      background: white;
+      color: #1a73e8;
+      text-decoration: none;
+      display: inline-block;
+      font-weight: bold;
+    }
+
+    .main-btn:hover {
+      transform: scale(1.05);
+      background: #eee;
+    }
+
+    /* ===== toggle ภาษา ===== */
+    .lang-switch {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 90px;
+      height: 36px;
+      background: #e0e0e0;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 4px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 12px;
+      box-sizing: border-box;
+      color: black;
+    }
+
+    .lang-switch span {
+      width: 50%;
+      text-align: center;
+      z-index: 2;
+    }
+
+    #slider {
+      position: absolute;
+      width: 50%;
+      height: calc(100% - 8px);
+      background: #1a73e8;
+      border-radius: 20px;
+      left: 4px;
+      top: 4px;
+      transition: 0.3s;
+    }
+
+    .lang-en #slider {
+      left: calc(50% - 4px);
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- 🌐 toggle ภาษา -->
+  <div class="lang-switch" onclick="toggleLang()">
+    <div id="slider"></div>
+    <span>TH</span>
+    <span>EN</span>
+  </div>
+
+  <div class="hero">
+    <h1 id="title">AI Bite Analyzer</h1>
+    <p id="desc">ตรวจสอบรอยกัดด้วย AI ง่าย ๆ ภายในไม่กี่วินาที</p>
+
+    <!-- ✅ ปุ่มเท่าหน้า analyzer แล้ว -->
+    <a id="startBtn" href="analyzer.html" class="main-btn">
+      เริ่มใช้งาน
+    </a>
+  </div>
+
+  <script>
+    let currentLang = "th";
+
+    function toggleLang() {
+      const body = document.body;
+      const title = document.getElementById("title");
+      const desc = document.getElementById("desc");
+      const btn = document.getElementById("startBtn");
+
+      if (currentLang === "th") {
+        body.classList.add("lang-en");
+
+        title.innerText = "AI Bite Analyzer";
+        desc.innerText = "Analyze insect bites with AI in seconds";
+        btn.innerText = "Start";
+
+        currentLang = "en";
+      } else {
+        body.classList.remove("lang-en");
+
+        title.innerText = "AI Bite Analyzer";
+        desc.innerText = "ตรวจสอบรอยกัดด้วย AI ง่าย ๆ ภายในไม่กี่วินาที";
+        btn.innerText = "เริ่มใช้งาน";
+
+        currentLang = "th";
+      }
+    }
+  </script>
+
+</body>
+</html>
